@@ -13,7 +13,7 @@ export function PendingButton() {
                     <Loader2 className='h-5 w-5 animate-spin  mr-[1rem]' />
                     Please wait...
                 </Button>
-            ) : (<Button type='submit' size="lg" className='hover:scale-105 transition-all shadow-md'>Submit</Button>)}
+            ) : (<Button type='submit' size="lg" className='hover:scale-105 transition-all shadow-md'>Next</Button>)}
         </div>
     )
 }

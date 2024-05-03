@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { Button } from "../ui/button";
 import { Minus, Plus } from "lucide-react";
 
-function Counter() {
+function Counter({name}: {name: string}) {
   const [amount, setAmount] = useState<number>(1);
   return (
     <div className="flex gap-x-4 items-center justify-center">
+      <input type="hidden" name={name} value={amount} />
       <Button variant="outline" size="icon" type="button" disabled={amount === 1?true:false} onClick={()=>{
         setAmount(amount-1);
       }}>
