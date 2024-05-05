@@ -30,6 +30,25 @@ export async function selectHomeCategory({ userId }: { userId: string }) {
     return redirect(`/createHome/${home.id}/structure`);
   } else if (home.addedCategory && !home.addedDescription) {
     return redirect(`/createHome/${home.id}/description`);
+  } else if (
+    home.addedCategory &&
+    home.addedDescription &&
+    !home.addedLocation
+  ) {
+    return redirect(`/createHome/${home.id}/location`);
+  } else if (
+    home.addedCategory &&
+    home.addedDescription &&
+    home.addedLocation
+  ) {
+    home = await prisma.home.create({
+      data: {
+        usersId: userId,
+      },
+    });
+
+    return redirect(`/createHome/${home.id}/structure`);
+    // return redirect(`/createHome/${home.id}/choice`);
   }
 }
 
@@ -60,7 +79,7 @@ export async function createDescriptionPage(formData: FormData) {
   const guestNumber = formData.get("guests") as string;
   const bedroomNumber = formData.get("bedrooms") as string;
   const bathroomNumber = formData.get("bathrooms") as string;
-  
+
   // Upload image to Supabase Storage by using supabase client
   const { data } = await supabase.storage
     .from("Airbnb-clone-images")
@@ -81,9 +100,26 @@ export async function createDescriptionPage(formData: FormData) {
       bedrooms: bedroomNumber,
       bathrooms: bathroomNumber,
       addedDescription: true,
-      photo: data?.path
+      photo: data?.path,
     },
   });
 
   return redirect(`/createHome/${homeId}/location`);
+}
+
+export async function createLocationPage(formData: FormData) {
+  const homeId = formData.get("homeId") as string;
+  const location = formData.get("location") as string;
+
+  const home = await prisma.home.update({
+    where: {
+      id: homeId,
+    },
+    data: {
+      country: location,
+      addedLocation: true,
+    },
+  });
+
+  return redirect(`/`);
 }

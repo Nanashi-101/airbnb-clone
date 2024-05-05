@@ -1,3 +1,4 @@
+import { createDescriptionPage } from "@/app/action";
 import Counter from "@/components/my_components/counter";
 import CreateHomeFooter from "@/components/my_components/CreateHomeFooter";
 import { Card, CardHeader } from "@/components/ui/card";
@@ -14,7 +15,7 @@ function DescriptionRoute({params}: {params: {id: string}}) {
         </h2>
       </div>
 
-      <form>
+      <form action={createDescriptionPage}>
         <input type="hidden" name="homeId" value={params.id} />
         <div className="flex flex-col w-[50%] mx-auto mt-10 mb-36 gap-y-5">
           <div className="flex flex-col gap-y-2">
