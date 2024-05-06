@@ -51,8 +51,8 @@ export async function UserNav() {
                                     <button className='w-full font-medium text-start'>{getHome() === null ? 'Add your home':'Airbnb your home'}</button>
                                 </form>
                             </DropdownMenuItem>
-                            <DropdownMenuItem><Link href='/my-listings'>My Listings</Link></DropdownMenuItem>
-                            <DropdownMenuItem><Link href='/favorites'>My Favorites</Link></DropdownMenuItem>
+                            <DropdownMenuItem><Link href='/listing'>My Listings</Link></DropdownMenuItem>
+                            <DropdownMenuItem><Link href='/favorite'>My Favorites</Link></DropdownMenuItem>
                             <DropdownMenuItem><Link href='/reservations'>My Reservations</Link></DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem><LogoutLink className='flex gap-x-[0.3rem] items-center justify-center'>Log out<IoIosLogOut /></LogoutLink></DropdownMenuItem>

@@ -20,7 +20,7 @@ interface ListingCardProps {
 }
 
 function ListingCard({ params }: { params: ListingCardProps }) {
-  const flagUrl = findFlagUrlByCountryName(params.country);
+  const flagUrl = findFlagUrlByCountryName(params.country as string);
   return (
     <div className="flex flex-col border rounded-lg p-2 shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.02]">
       <div className="relative h-72">

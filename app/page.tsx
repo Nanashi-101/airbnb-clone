@@ -89,7 +89,7 @@ async function GetListingData({
           ))}
         </div>
       ) : (
-        <NoItems />
+        <NoItems mainText="No listings of this category found..." subText="Please check other categories or create your own listing!"/>
       )}
     </>
   );
