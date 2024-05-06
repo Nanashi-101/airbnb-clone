@@ -11,13 +11,13 @@ function Counter({name}: {name: string}) {
       <input type="hidden" name={name} value={amount} />
       <Button variant="outline" size="icon" type="button" disabled={amount === 1?true:false} onClick={()=>{
         setAmount(amount-1);
-      }}>
+      }} className="h-8 sm:h-10 w-8 sm:w-10">
         <Minus className="h-4 w-4 text-primary" />
       </Button>
       <h1 className="font-semibold text-lg">{amount}</h1>
       <Button variant="outline" size="icon" type="button" disabled={amount === 5?true:false} onClick={()=>{
         setAmount(amount+1);
-      }}>
+      }} className="h-8 sm:h-10 w-8 sm:w-10">
         <Plus className="h-4 w-4 text-primary" />
       </Button>
     </div>

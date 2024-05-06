@@ -3,6 +3,7 @@
 import { redirect } from "next/navigation";
 import prisma from "./lib/db";
 import { supabase } from "./lib/supabase";
+import { revalidatePath } from "next/cache";
 
 export async function selectHomeCategory({ userId }: { userId: string }) {
   let home = await prisma.home.findFirst({
@@ -122,4 +123,33 @@ export async function createLocationPage(formData: FormData) {
   });
 
   return redirect(`/`);
+}
+
+
+export async function addToFavorite(formData: FormData ) {
+  const userId = formData.get("userId") as string;
+  const homeId = formData.get("homeId") as string;
+  const pathName = formData.get("pathName") as string;
+  const favorite = await prisma.favorite.create({
+    data: {
+      usersId: userId,
+      homeId: homeId,
+    },
+  });
+  
+  // Revalidate the path to update the UI
+  revalidatePath(pathName)
+}
+
+export async function deleteFromFavorite(formData: FormData) {
+  const userId = formData.get("userId") as string;
+  const favoriteId = formData.get("favoriteId") as string;
+  const pathName = formData.get("pathName") as string;
+  const favorite = await prisma.favorite.delete({
+    where: {
+      id: favoriteId,
+      usersId: userId,
+    },
+  });
+  revalidatePath(pathName)
 }

@@ -3,14 +3,17 @@ import FilterItems from "@/components/my_components/filterItems";
 import ListingCard from "@/components/my_components/ListingCard";
 import NoItems from "@/components/my_components/NoItems";
 import SkeletonCard from "@/components/my_components/SkeletonCard";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Suspense } from "react";
 
 const getData = async ({
   searchParams,
+  userId,
 }: {
   searchParams?: {
     filter?: string;
   };
+  userId?: string | undefined;
 }) => {
   const data = await prisma.home.findMany({
     where: {
@@ -25,6 +28,11 @@ const getData = async ({
       country: true,
       price: true,
       photo: true,
+      Favorite: {
+        where: {
+          usersId: userId,
+        },
+      }
     },
   });
 
@@ -56,7 +64,9 @@ async function GetListingData({
     filter?: string;
   };
 }) {
-  const data = (await getData({ searchParams })).sort();
+  const {getUser}  = getKindeServerSession();
+  const user = await getUser();
+  const data = (await getData({ searchParams: searchParams, userId: user?.id })).sort();
   return (
     <>
       {data.length > 0 ? (
@@ -69,6 +79,11 @@ async function GetListingData({
                 description: item.description as string,
                 country: item.country as string,
                 price: item.price as number,
+                userId: user?.id,
+                homeId: item.id as string,
+                favoriteId: item.Favorite[0]?.id,
+                isAddedToFavorite: item.Favorite.length > 0 ? true : false,
+                pathName: "/",
               }}
             />
           ))}

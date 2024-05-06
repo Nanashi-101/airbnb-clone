@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import Link from "next/link";
-import PendingButton from "./pendingStateBtn";
+import { PendingButton } from "./pendingStateBtn";
 
 function CreateHomeFooter() {
   return (

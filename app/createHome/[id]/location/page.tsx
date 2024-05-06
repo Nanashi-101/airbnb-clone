@@ -29,8 +29,8 @@ function LocationRoute({params}: {params: {id: string}}) {
     loading: () => <Skeleton className="h-[50vh] w-full" />,
   });
   return (
-    <div>
-      <div className="w-[50%] mx-auto">
+    <div className="mb-28">
+      <div className="sm:w-[60%] mx-auto px-6">
         <h2 className="text-3xl font-semibold tracking-tight transition-colors">
           Where is your home located?
         </h2>
@@ -39,10 +39,10 @@ function LocationRoute({params}: {params: {id: string}}) {
       <form action={createLocationPage}>
         <input type="hidden" name="homeId" value={params.id}/>
         <input type="hidden" name="location" value={location}/>
-        <div className="w-[50%] mx-auto">
+        <div className="sm:w-[60%] mx-auto px-6">
           <div className="my-5">
             <Select name="location" required onValueChange={(value) => setSelectedLocation(value)}>
-              <SelectTrigger className="w-full ">
+              <SelectTrigger className="w-full">
                 <SelectValue placeholder="Select your country" />
               </SelectTrigger>
               <SelectContent>
