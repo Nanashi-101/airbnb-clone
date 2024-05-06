@@ -1,8 +1,10 @@
+"use client"; 
 /* eslint-disable @next/next/no-img-element */
 import { findFlagUrlByCountryName } from "country-flags-svg";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { motion } from "framer-motion";
 
 interface ListingCardProps {
   imagePath: string;
@@ -14,7 +16,8 @@ interface ListingCardProps {
 function ListingCard({ params }: { params: ListingCardProps }) {
   const flagUrl = findFlagUrlByCountryName(params.country);
   return (
-    <div className="flex flex-col border rounded-lg p-2 shadow-lg">
+    <div className="flex flex-col border rounded-lg p-2 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 ease-in-out hover:scale-[1.02]"
+    >
       <div className="relative h-72">
         <Image
           src={`https://jfoxkltpglwmgpmnzmmy.supabase.co/storage/v1/object/public/Airbnb-clone-images/${params.imagePath}`}
@@ -33,7 +36,7 @@ function ListingCard({ params }: { params: ListingCardProps }) {
           <h3 className="font-medium text-lg">{params.country}</h3>
         </div>
         <p className="text-muted-foreground text-sm line-clamp-2">{params.description}</p>
-        <p className="pt-2 text-muted-foreground text-lg"><span className="font-medium text-black">{params.price}PLN</span> / Night</p>
+        <p className="pt-2 text-muted-foreground text-lg"><span className="font-medium text-black">{params.price}zł</span> / Night</p>
       </Link>
     </div>
   );
