@@ -41,7 +41,6 @@ const MapComponent = ({
       <Marker
         position={location ?? [51.505, -0.09]}
         icon={ICON}
-        draggable={true}
       />
     </MapContainer>
   );

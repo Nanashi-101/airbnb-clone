@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import prisma from "@/app/lib/db";
 import { useCountries } from "@/app/lib/getCountries";
+import CategoryProfile from "@/components/my_components/categoryProfile";
+import HomeMap from "@/components/my_components/homeMap";
+import { Separator } from "@/components/ui/separator";
 import { findFlagUrlByCountryName } from "country-flags-svg";
 import Image from "next/image";
 
@@ -19,6 +22,15 @@ async function getHomeData(homeId: string) {
       bedrooms: true,
       bathrooms: true,
       guests: true,
+      createdAt: true,
+      users: {
+        select: {
+          firstName: true,
+          lastName: true,
+          email: true,
+          profilePicture: true,
+        },
+      },
     },
   });
 
@@ -34,8 +46,13 @@ export default async function HomeRoute({
   const { getCountryByValue } = useCountries();
   const country = getCountryByValue(homeData?.country as string);
   const flagUrl = findFlagUrlByCountryName(country?.label as string);
+  const date = [
+    homeData?.createdAt?.getDate(),
+    homeData?.createdAt?.getMonth(),
+    homeData?.createdAt?.getFullYear(),
+  ];
   return (
-    <div className="max-w-[75%] mx-auto my-10">
+    <div className="max-w-[75%] mx-auto my-10 mb-12">
       <h1 className="text-2xl mb-5 font-medium">{homeData?.title}</h1>
       <div className="relative h-[34.375rem]">
         <Image
@@ -54,7 +71,7 @@ export default async function HomeRoute({
             <img
               src={flagUrl}
               alt={country?.label}
-              className="w-10 h-10 rounded-sm object-cover object-center flex items-center justify-center"
+              className="w-10 h-10 rounded-sm object-cover object-center flex items-center justify-center shadow-md"
             />
             <h3 className="font-medium text-xl">
               {country?.label}
@@ -64,10 +81,47 @@ export default async function HomeRoute({
           </div>
           <div className="flex gap-x-8 mt-4">
             <p className="text-muted-foreground font-medium">
-              {homeData?.guests} guests ·{" "} {homeData?.bedrooms} bedrooms ·{" "}
+              {homeData?.guests} guests · {homeData?.bedrooms} bedrooms ·{" "}
               {homeData?.bathrooms} bathrooms
-            </p>            
+            </p>
           </div>
+          <div className="flex items-center mt-6">
+            <img
+              src={
+                homeData?.users?.profilePicture
+                  ? homeData?.users?.profilePicture
+                  : "https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg"
+              }
+              alt="user-img"
+              className="w-16 h-16 rounded-full shadow-xl"
+            />
+            <div className="flex flex-col ml-4">
+              <h3 className="font-medium">
+                Hosted by {homeData?.users?.firstName}
+              </h3>
+              <p>
+                Post created at {date[0]}
+                {"/"}
+                {date[1]}
+                {"/"}
+                {date[2]}
+              </p>
+            </div>
+          </div>
+
+          <Separator className="my-7" />
+
+          <CategoryProfile category={homeData?.categoryName as string} />
+
+          <Separator className="my-7" />
+
+          <p className="text-justify text-muted-foreground">
+            {homeData?.description}
+          </p>
+
+          <Separator className="my-7" />
+
+          <HomeMap locationValue={homeData?.country as string}/>
         </div>
       </div>
     </div>
