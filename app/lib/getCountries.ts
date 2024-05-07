@@ -16,7 +16,7 @@ export const useCountries = () => {
 
     // Return a country by its value
     const getCountryByValue = (value: string) => {
-        return formattedCountriesData.find((item) => item.value === value);
+        return formattedCountriesData.find((item) => item.label === value);
     }
 
     return {

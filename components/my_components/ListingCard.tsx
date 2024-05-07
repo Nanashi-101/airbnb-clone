@@ -51,7 +51,7 @@ function ListingCard({ params }: { params: ListingCardProps }) {
           </div>
         )}
       </div>
-      <Link href="/" className="mt-4">
+      <Link href={`/home/${params.homeId}`} className="mt-4">
         <div className="flex gap-2">
           <img
             src={flagUrl}
