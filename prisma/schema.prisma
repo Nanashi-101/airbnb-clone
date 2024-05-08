@@ -17,12 +17,13 @@ datasource db {
 model users {
   id String @id @unique
 
-  email          String?    @unique
+  email          String?       @unique
   firstName      String?
   lastName       String?
   profilePicture String?
   Home           Home[]
   Favorite       Favorite[]
+  Reservation    Reservation[]
 }
 
 model Home {
@@ -37,8 +38,10 @@ model Home {
   country      String?
   photo        String?
   categoryName String?
+  availableFor  Int?
 
-  Favorite Favorite[]
+  Favorite    Favorite[]
+  Reservation Reservation[]
 
   addedCategory    Boolean @default(false)
   addedLocation    Boolean @default(false)
@@ -57,4 +60,17 @@ model Favorite {
   homeId  String?
 
   createdAt DateTime @default(now())
+}
+
+model Reservation {
+  id String @id @default(uuid())
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  createdAt DateTime @default(now())
+  users     users?   @relation(fields: [usersId], references: [id])
+  usersId   String?
+  Home      Home?    @relation(fields: [homeId], references: [id])
+  homeId    String?
 }

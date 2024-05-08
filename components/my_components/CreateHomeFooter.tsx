@@ -16,7 +16,7 @@ function CreateHomeFooter() {
           >
             <Link href="/">Cancel</Link>
           </Button>
-          <PendingButton />
+          <PendingButton text="Next"/>
         </div>
       </div>
     </div>

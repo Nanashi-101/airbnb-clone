@@ -1,9 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
+import { createReservation } from "@/app/action";
 import prisma from "@/app/lib/db";
 import { useCountries } from "@/app/lib/getCountries";
 import CategoryProfile from "@/components/my_components/categoryProfile";
 import HomeMap from "@/components/my_components/homeMap";
+import { AddReservationButton } from "@/components/my_components/pendingStateBtn";
+import SelectCalender from "@/components/my_components/SelectCalender";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { getKindeServerSession, LoginLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import { findFlagUrlByCountryName } from "country-flags-svg";
 import Image from "next/image";
 
@@ -22,7 +27,13 @@ async function getHomeData(homeId: string) {
       bedrooms: true,
       bathrooms: true,
       guests: true,
+      availableFor: true,
       createdAt: true,
+      Reservation:{
+        where:{
+          homeId: homeId
+        }
+      },
       users: {
         select: {
           firstName: true,
@@ -42,6 +53,8 @@ export default async function HomeRoute({
 }: {
   params: { id: string };
 }) {
+  const {getUser} = getKindeServerSession();
+  const user = await getUser();
   const homeData = await getHomeData(params.id);
   const { getCountryByValue } = useCountries();
   const country = getCountryByValue(homeData?.country as string);
@@ -121,8 +134,22 @@ export default async function HomeRoute({
 
           <Separator className="my-7" />
 
-          <HomeMap locationValue={homeData?.country as string}/>
+          <HomeMap locationValue={homeData?.country as string} />
         </div>
+        <form className="flex flex-col items-center" action={createReservation}>
+          <input type="hidden" name="homeId" value={params.id} />
+          <input type="hidden" name="userId" value={user?.id} />
+          <SelectCalender availableDates={homeData?.availableFor as number} reservation={homeData?.Reservation}/>
+          {
+            user?.id ? (
+              <AddReservationButton text="Make a reservation" />
+            ) : (
+              <Button className="w-full" asChild>
+                <LoginLink>Login to book</LoginLink>
+              </Button>
+            )
+          }
+        </form>
       </div>
     </div>
   );

@@ -36,6 +36,16 @@ function DescriptionRoute({params}: {params: {id: string}}) {
             />
           </div>
           <div className="flex flex-col gap-y-2">
+            <Label>No. of days:</Label>
+            <Input
+              name="days"
+              type="number"
+              placeholder="No. of days available for booking"
+              required
+              min={10}
+            />
+          </div>
+          <div className="flex flex-col gap-y-2">
             <Label>Price:</Label>
             <Input
               name="price"
