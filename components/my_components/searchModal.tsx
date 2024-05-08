@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -51,20 +51,26 @@ function SearchModalComponent() {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="rounded-full py-3 px-5 text-xl flex items-center cursor-pointer border transition-all">
-          <div className="flex h-full divide-x font-medium">
+        <div className="w-full mx-auto rounded-full py-3 px-5 text-sm md:text-xl hidden sm:flex items-center cursor-pointer border transition-all">
+          <div className="hidden sm:flex h-full divide-x font-medium">
             <p className="px-4 transition-all">Anywhere</p>
             <p className="px-4">Any week</p>
             <p className="px-4">Add guests</p>
           </div>
-
+          <Search
+            size={24}
+            className="hidden sm:block ml-4 bg-primary text-white h-10 w-10 p-2 rounded-full transition-all hover:scale-105"
+          />
+        </div>
+        <div className="w-full mx-auto rounded-full py-3 px-5 flex items-center border justify-between sm:hidden h-full font-medium text-lg">
+          <p className="px-4 transition-all">Where to?</p>
           <Search
             size={24}
             className="ml-4 bg-primary text-white h-10 w-10 p-2 rounded-full transition-all hover:scale-105"
           />
         </div>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[325px] sm:max-w-[425px] rounded-xl">
         <form className="flex flex-col gap-4">
           <input type="hidden" name="country" value={selectedLocation} />
           {step === 1 ? (
@@ -77,7 +83,11 @@ function SearchModalComponent() {
                 <Select
                   name="location"
                   required
-                  onValueChange={(value) => setSelectedLocation(getCountryByIso2Code(value)?.label as string)}
+                  onValueChange={(value) =>
+                    setSelectedLocation(
+                      getCountryByIso2Code(value)?.label as string
+                    )
+                  }
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select your country" />
