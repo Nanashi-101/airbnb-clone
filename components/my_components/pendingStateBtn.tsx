@@ -26,7 +26,7 @@ export function PendingButton({ text }: { text: string }) {
   );
 }
 
-export function AddReservationButton({ text }: { text: string }) {
+export function PendingButton2({ text }: { text: string }) {
   const { pending } = useFormStatus();
   return (
     <>

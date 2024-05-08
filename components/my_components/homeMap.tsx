@@ -8,7 +8,7 @@ function HomeMap({ locationValue }: { locationValue: string }) {
   const [locationName, setLocationName] = useState<string>("");
   const LazyMap = dynamic(() => import("@/components/my_components/Map"), {
     ssr: false,
-    loading: () => <Skeleton />,
+    loading: () => <Skeleton className="h-[50vh] w-full"/>,
   });
   return (
     <LazyMap locationValue={locationValue} setLocation={setLocationName} />

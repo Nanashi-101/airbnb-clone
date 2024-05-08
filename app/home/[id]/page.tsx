@@ -4,7 +4,7 @@ import prisma from "@/app/lib/db";
 import { useCountries } from "@/app/lib/getCountries";
 import CategoryProfile from "@/components/my_components/categoryProfile";
 import HomeMap from "@/components/my_components/homeMap";
-import { AddReservationButton } from "@/components/my_components/pendingStateBtn";
+import { PendingButton2 } from "@/components/my_components/pendingStateBtn";
 import SelectCalender from "@/components/my_components/SelectCalender";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -142,7 +142,7 @@ export default async function HomeRoute({
           <SelectCalender availableDates={homeData?.availableFor as number} reservation={homeData?.Reservation}/>
           {
             user?.id ? (
-              <AddReservationButton text="Make a reservation" />
+              <PendingButton2 text="Make a reservation" />
             ) : (
               <Button className="w-full" asChild>
                 <LoginLink>Login to book</LoginLink>

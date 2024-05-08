@@ -12,6 +12,10 @@ const getData = async ({
 }: {
   searchParams?: {
     filter?: string;
+    country?: string;
+    guests?: string;
+    bedrooms?: string;
+    bathrooms?: string;
   };
   userId?: string | undefined;
 }) => {
@@ -21,6 +25,10 @@ const getData = async ({
       addedDescription: true,
       addedLocation: true,
       categoryName: searchParams?.filter ?? undefined,
+      country: searchParams?.country ?? undefined,
+      guests: searchParams?.guests ?? undefined,
+      bedrooms: searchParams?.bedrooms ?? undefined,
+      bathrooms: searchParams?.bathrooms ?? undefined,
     },
     select: {
       id: true,
@@ -32,7 +40,7 @@ const getData = async ({
         where: {
           usersId: userId,
         },
-      }
+      },
     },
   });
 
@@ -62,11 +70,17 @@ async function GetListingData({
 }: {
   searchParams?: {
     filter?: string;
+    country?: string;
+    guests?: string;
+    bedrooms?: string;
+    bathrooms?: string;
   };
 }) {
-  const {getUser}  = getKindeServerSession();
+  const { getUser } = getKindeServerSession();
   const user = await getUser();
-  const data = (await getData({ searchParams: searchParams, userId: user?.id })).sort();
+  const data = (
+    await getData({ searchParams: searchParams, userId: user?.id })
+  ).sort();
   return (
     <>
       {data.length > 0 ? (
@@ -89,7 +103,10 @@ async function GetListingData({
           ))}
         </div>
       ) : (
-        <NoItems mainText="No listings of this category found..." subText="Please check other categories or create your own listing!"/>
+        <NoItems
+          mainText="No listings of this category found..."
+          subText="Please check other categories or create your own listing!"
+        />
       )}
     </>
   );

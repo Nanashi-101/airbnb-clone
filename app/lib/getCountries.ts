@@ -19,8 +19,13 @@ export const useCountries = () => {
         return formattedCountriesData.find((item) => item.label === value);
     }
 
+    const getCountryByIso2Code = (value: string) => {
+        return formattedCountriesData.find((item) => item.value === value);
+    }
+
     return {
         getAllCountries,
         getCountryByValue,
+        getCountryByIso2Code,
     }
 }
