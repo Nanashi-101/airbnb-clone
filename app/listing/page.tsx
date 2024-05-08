@@ -5,8 +5,10 @@ import { redirect } from "next/navigation";
 import NoItems from "@/components/my_components/NoItems";
 import { divIcon } from "leaflet";
 import ListingCard from "@/components/my_components/ListingCard";
+import {unstable_noStore as noStore} from "next/cache"
 
 async function getData(userId: string) {
+  noStore();
   const data = await prisma.home.findMany({
     where: {
       usersId: userId,

@@ -11,8 +11,10 @@ import { Separator } from "@/components/ui/separator";
 import { getKindeServerSession, LoginLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import { findFlagUrlByCountryName } from "country-flags-svg";
 import Image from "next/image";
+import {unstable_noStore as noStore} from "next/cache"
 
 async function getHomeData(homeId: string) {
+  noStore();
   const data = await prisma.home.findUnique({
     where: {
       id: homeId,

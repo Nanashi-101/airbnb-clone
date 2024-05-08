@@ -5,6 +5,7 @@ import NoItems from "@/components/my_components/NoItems";
 import SkeletonCard from "@/components/my_components/SkeletonCard";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Suspense } from "react";
+import {unstable_noStore as noStore} from "next/cache"
 
 const getData = async ({
   searchParams,
@@ -19,6 +20,7 @@ const getData = async ({
   };
   userId?: string | undefined;
 }) => {
+  noStore();
   const data = await prisma.home.findMany({
     where: {
       addedCategory: true,
