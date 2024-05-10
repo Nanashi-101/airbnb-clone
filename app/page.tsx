@@ -5,7 +5,7 @@ import NoItems from "@/components/my_components/NoItems";
 import SkeletonCard from "@/components/my_components/SkeletonCard";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Suspense } from "react";
-import {unstable_noStore as noStore} from "next/cache"
+import { unstable_noStore as noStore } from "next/cache";
 
 const getData = async ({
   searchParams,
@@ -60,7 +60,9 @@ export default function Home({
     <div className="container px-5 lg:px-10">
       <FilterItems />
       <Suspense key={searchParams?.filter} fallback={<SkeletonLoading />}>
-        <GetListingData searchParams={searchParams} />
+        <div className="py-6">
+          <GetListingData searchParams={searchParams} />
+        </div>
       </Suspense>
     </div>
   );

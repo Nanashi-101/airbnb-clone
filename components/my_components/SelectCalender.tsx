@@ -56,11 +56,9 @@ function SelectCalender({
         ranges={state}
         onChange={(item) => setState([item.selection] as any)}
         minDate={new Date()}
-        maxDate={
-          new Date(new Date().setDate(new Date().getDate() + availableDates))
-        }
         direction="vertical"
         disabledDates={disabledDates}
+        
       />
     </>
   );
