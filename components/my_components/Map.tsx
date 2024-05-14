@@ -15,11 +15,13 @@ const ICON = icon({
 interface MapComponentProps {
   locationValue: string;
   setLocation: Dispatch<SetStateAction<string>>;
+  draggable?: boolean;
 }
 
 const MapComponent = ({
   locationValue,
   setLocation,
+  draggable = false,
 }: MapComponentProps) => {
   const { getCountryByValue } = useCountries();
 
@@ -28,7 +30,7 @@ const MapComponent = ({
 
   return (
     <MapContainer
-      scrollWheelZoom={true}
+      scrollWheelZoom={draggable}
       className="h-[50vh] rounded-lg relative z-0"
       center={location ?? [51.505, -0.09]}
       zoom={6}

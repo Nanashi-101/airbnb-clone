@@ -67,9 +67,9 @@ export default async function HomeRoute({
     homeData?.createdAt?.getFullYear(),
   ];
   return (
-    <div className="max-w-[75%] mx-auto my-10 mb-12">
-      <h1 className="text-2xl mb-5 font-medium">{homeData?.title}</h1>
-      <div className="relative h-[34.375rem]">
+    <div className="w-[95%] md:max-w-[75%] mx-auto my-10 mb-12">
+      <h1 className="text-lg md:text-2xl mb-5 font-medium">{homeData?.title}</h1>
+      <div className="relative h-[25.375rem] md:h-[35.375rem] flex items-center justify-center">
         <Image
           alt="home-img"
           src={`https://jfoxkltpglwmgpmnzmmy.supabase.co/storage/v1/object/public/Airbnb-clone-images/${homeData?.photo}`}
@@ -77,18 +77,18 @@ export default async function HomeRoute({
           fill
           quality={100}
           loading="eager"
-          className="rounded-sm shadow-2xl h-full w-full object-cover border border-white"
+          className="rounded-sm shadow-2xl h-full w-full object-contain md:object-cover border border-white"
         />
       </div>
-      <div className="flex justify-between gap-x-24 mt-8">
-        <div className="w-2/3">
+      <div className="grid grid-cols-1 lg:grid-cols-3 justify-between lg:gap-y-12 gap-x-12 mt-8">
+        <div className="lg:col-span-2 w-full">
           <div className="flex gap-2 items-center">
             <img
               src={flagUrl}
               alt={country?.label}
               className="w-10 h-10 rounded-sm object-cover object-center flex items-center justify-center shadow-md"
             />
-            <h3 className="font-medium text-xl">
+            <h3 className="font-medium text-md md:text-xl">
               {country?.label}
               {"/"}
               {country?.region}
@@ -110,7 +110,7 @@ export default async function HomeRoute({
               alt="user-img"
               className="w-16 h-16 rounded-full shadow-xl"
             />
-            <div className="flex flex-col ml-4">
+            <div className="flex flex-col ml-4 text-xs md:text-base">
               <h3 className="font-medium">
                 Hosted by {homeData?.users?.firstName}
               </h3>
@@ -136,7 +136,7 @@ export default async function HomeRoute({
 
           <Separator className="my-7" />
 
-          <HomeMap locationValue={homeData?.country as string} />
+          <HomeMap locationValue={homeData?.country as string} draggable={false}/>
         </div>
         <form className="flex flex-col items-center" action={createReservation}>
           <input type="hidden" name="homeId" value={params.id} />
@@ -146,7 +146,7 @@ export default async function HomeRoute({
             user?.id ? (
               <PendingButton2 text="Make a reservation" />
             ) : (
-              <Button className="w-full" asChild>
+              <Button className="w-[300px]" asChild>
                 <LoginLink>Login to book</LoginLink>
               </Button>
             )
