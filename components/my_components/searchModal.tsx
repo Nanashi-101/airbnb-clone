@@ -116,7 +116,7 @@ function SearchModalComponent() {
                   </SelectContent>
                 </Select>
                 <div className="pt-4">
-                  <HomeMap locationValue={selectedLocation as string} />
+                  <HomeMap locationValue={selectedLocation as string} draggable={true}/>
                 </div>
               </DialogHeader>
               <DialogFooter>
