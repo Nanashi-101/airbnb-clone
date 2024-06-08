@@ -32,5 +32,5 @@ export async function GET() {
         });
     }
 
-    return NextResponse.redirect('https://airbnb-clone-self-ten.vercel.app');
+    return NextResponse.redirect('http://localhost:3000');
 }
